@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEYOND</title>
+    <!-- Fonts: 'UnifrakturMaguntia' or 'Playfair Display' for the big title, 'VT323' for pixel text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=VT323&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CRT Effect Overlay -->
+    <div class="crt-overlay"></div>
+    <div class="grain-overlay"></div>
+
+    <!-- 1. The Abyss Transition Scene -->
+    <div id="transition-scene" class="scene active">
+        <!-- Assume the previous cinematic intro hands off here -->
+        <div class="abyss-container">
+            <div class="floor-crack"></div>
+            <div class="void"></div>
+            <p class="whispering-text">they are waiting...</p>
+        </div>
+    </div>
+
+    <!-- 2. Start Page -->
+    <div id="start-scene" class="scene hidden">
+        <div class="geom-circle"></div>
+        <div class="start-content">
+            <div class="subtitle">A P S Y C H O L O G I C A L T H R I L L E R</div>
+            <h1 class="title">BEYOND</h1>
+            <p class="description" style="margin-bottom: 20px;">
+                This is your mind.<br>
+                Hunt your fears.<br>
+                Destroy them before they consume you.
+            </p>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; color: #ff5555; text-shadow: 1px 1px 0 #000;">
+                [WASD/Arrows to Move] <br>
+                [SPACE to Attack/Dash]
+            </p>
+            <button id="btn-play" class="pixel-button">
+                <span class="red-arrow">▶</span> P L A Y
+            </button>
+        </div>
+    </div>
+
+    <!-- 3. The Main Game -->
+    <div id="game-scene" class="scene hidden">
+        <div id="ui-layer">
+            <div id="hearts-container">
+                <div class="heart full"></div>
+                <div class="heart full"></div>
+                <div class="heart full"></div>
+            </div>
+            <div id="enemies-left">Fears remaining: <span id="kill-count">0</span></div>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <!-- 4. Game Over / Victory Screens -->
+    <div id="end-scene" class="scene hidden">
+        <div class="end-content">
+            <h2 id="end-title" class="title"></h2>
+            <p id="end-text" class="end-description"></p>
+            <button id="btn-replay" class="pixel-button">
+                <span class="red-arrow">⟲</span> R E P L A Y
+            </button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>

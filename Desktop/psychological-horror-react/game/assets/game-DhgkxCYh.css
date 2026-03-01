@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box
+}
+
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center
+}
+
+body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: #111;
+    color: #fff;
+    font-family: Courier New, Courier, monospace
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative
+}
+
+.game-header {
+    margin-bottom: 20px
+}
+
+.game-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 2px
+}
+
+.game-stage {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px #000c
+}

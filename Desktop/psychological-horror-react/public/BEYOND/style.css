@@ -1,0 +1,239 @@
+:root {
+    --bg-color: #050505;
+    --red-accent: #b31b1b;
+    --blood-red: #8B0000;
+    --muted-blue: #1c2e4a;
+    --text-color: #e0e0e0;
+    --pixel-font: 'VT323', monospace;
+    --title-font: 'Playfair Display', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: crosshair; /* Spooky feel */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--pixel-font);
+    overflow: hidden; /* No scrolling in the abyss */
+    user-select: none;
+}
+
+/* --- Global Effects --- */
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.grain-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* Scene Manager */
+.scene {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 2s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* --- Scene 1: Transition Void --- */
+#transition-scene {
+    background-color: var(--bg-color);
+    flex-direction: column;
+}
+
+.abyss-container {
+    text-align: center;
+    animation: shake 0.5s infinite;
+}
+
+.whispering-text {
+    font-size: 2rem;
+    color: #4a0000;
+    letter-spacing: 5px;
+    animation: fadePulse 3s infinite;
+    opacity: 0;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@keyframes fadePulse {
+    0% { opacity: 0; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0; transform: scale(0.9); }
+}
+
+/* --- Scene 2: Start Menu --- */
+#start-scene {
+    background: radial-gradient(circle at center, #111 0%, #000 70%);
+}
+
+.start-content {
+    text-align: center;
+    z-index: 10;
+    position: relative;
+}
+
+.geom-circle {
+    position: absolute;
+    width: 600px;
+    height: 300px;
+    border: 1px solid rgba(255, 0, 0, 0.1);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.subtitle {
+    color: var(--red-accent);
+    font-size: 1.2rem;
+    letter-spacing: 0.8rem;
+    margin-bottom: -10px;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px var(--red-accent);
+}
+
+.title {
+    font-family: var(--title-font);
+    font-size: 8rem;
+    color: #f0f0f0;
+    margin: 0;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px 0px var(--red-accent), -1px -1px 0px var(--muted-blue);
+}
+
+.description {
+    font-size: 1.5rem;
+    color: #aaa;
+    margin: 20px 0 50px 0;
+    font-style: italic;
+    letter-spacing: 2px;
+}
+
+.pixel-button {
+    background: transparent;
+    border: 1px solid #333;
+    color: var(--text-color);
+    font-family: var(--pixel-font);
+    font-size: 2rem;
+    padding: 15px 40px;
+    letter-spacing: 5px;
+    transition: all 0.2s ease;
+}
+
+.pixel-button:hover {
+    border-color: var(--red-accent);
+    color: #fff;
+    text-shadow: 0 0 10px var(--red-accent);
+    box-shadow: inset 0 0 20px rgba(179, 27, 27, 0.2);
+}
+
+.red-arrow {
+    color: var(--red-accent);
+    margin-right: 10px;
+}
+
+/* --- Scene 3: Main Game --- */
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 20px; left: 20px; right: 20px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 100;
+}
+
+#hearts-container {
+    display: flex;
+    gap: 10px;
+}
+
+.heart {
+    width: 24px; height: 24px;
+    background-color: var(--red-accent);
+    clip-path: polygon(50% 100%, 0 50%, 0 0, 50% 20%, 100% 0, 100% 50%);
+    box-shadow: 0 0 10px var(--blood-red);
+}
+
+.heart.empty {
+    background-color: #333;
+    box-shadow: none;
+}
+
+#enemies-left {
+    font-size: 2rem;
+    color: var(--red-accent);
+    text-shadow: 2px 2px 0 #000;
+}
+
+/* --- Scene 4: End Scene --- */
+#end-scene {
+    background: radial-gradient(circle at center, #2a0000 0%, #000 80%);
+}
+
+.end-content {
+    text-align: center;
+}
+
+.end-description {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #aaa;
+}
+
+/* Damage Flash Overlay */
+#damage-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s;
+    z-index: 150;
+}

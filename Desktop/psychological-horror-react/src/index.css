@@ -1,0 +1,4 @@
+/* clear out default vite css */
+* {
+  box-sizing: border-box;
+}
